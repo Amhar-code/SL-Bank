@@ -4,7 +4,6 @@ import jakarta.persistence.*;
 import lombok.*;
 import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.UpdateTimestamp;
-import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.List;
 
@@ -14,29 +13,30 @@ import java.util.List;
 @Setter
 @AllArgsConstructor
 @NoArgsConstructor
-public class Card {
 
+public class Account {
     @Id
     @GeneratedValue(strategy = GenerationType.UUID)
-    private String cardId;
+    private String accountId;
 
+    private double balance;
+    private String accountName;
     @Column(nullable = false, unique = true)
-    private Long cardNumber;
-    private String cardHolder;
-    private Double balance;
-    @CreationTimestamp
-    private LocalDate iss;
+    private long accountNumber;
+    private String currency;
+    private String code;
+    private String label;
+    private char symbol;
+
     @UpdateTimestamp
     private LocalDateTime updatedAt;
-    private LocalDateTime exp;
-    private String cvv;
-    private String pin;
-    private String billingAddress;
+    @CreationTimestamp
+    private LocalDateTime createdAt;
 
-    @OneToOne
+    @ManyToOne
     @JoinColumn(name = "owner_id")
     private User owner;
 
-    @OneToMany(mappedBy = "card", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    @OneToMany(mappedBy = "account", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     private List<Transactions> transactions;
 }

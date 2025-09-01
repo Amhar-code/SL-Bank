@@ -11,6 +11,7 @@ import java.util.List;
 import java.util.UUID;
 
 @Entity
+@Builder
 @Getter
 @Setter
 @AllArgsConstructor
@@ -42,4 +43,10 @@ public class User {
 
     @OneToOne(mappedBy = "owner")
     private Card card;
+
+    @OneToMany(mappedBy = "owner", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    private List<Transactions> transactions;
+
+    @OneToMany(mappedBy = "owner", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    private List<Account> accounts;
 }
