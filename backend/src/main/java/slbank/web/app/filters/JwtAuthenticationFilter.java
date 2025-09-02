@@ -1,4 +1,4 @@
-package slbank.web.app;
+package slbank.web.app.filters;
 
 import jakarta.servlet.FilterChain;
 import jakarta.servlet.ServletException;
