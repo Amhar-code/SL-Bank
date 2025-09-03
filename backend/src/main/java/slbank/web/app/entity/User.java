@@ -34,8 +34,7 @@ public class User implements UserDetails {
     @Column(nullable = false, unique = true)
     private String username;
 
-    private String password; // Added password field
-
+    private String password;
     private Date dob;
     private Long tel;
     private String tag;
@@ -61,10 +60,5 @@ public class User implements UserDetails {
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
         return roles.stream().map(SimpleGrantedAuthority::new).collect(Collectors.toList());
-    }
-
-    @Override
-    public String getPassword() { // Implemented getPassword method
-        return password;
     }
 }
