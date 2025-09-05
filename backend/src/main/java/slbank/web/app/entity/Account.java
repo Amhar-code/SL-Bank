@@ -1,5 +1,6 @@
 package slbank.web.app.entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.*;
 import org.hibernate.annotations.CreationTimestamp;
@@ -13,7 +14,7 @@ import java.util.List;
 @Setter
 @AllArgsConstructor
 @NoArgsConstructor
-
+@Table(name = "account")
 public class Account {
     @Id
     @GeneratedValue(strategy = GenerationType.UUID)
@@ -26,7 +27,7 @@ public class Account {
     private String currency;
     private String code;
     private String label;
-    private char symbol;
+    private String symbol;
 
     @UpdateTimestamp
     private LocalDateTime updatedAt;
@@ -34,9 +35,12 @@ public class Account {
     private LocalDateTime createdAt;
 
     @ManyToOne
-    @JoinColumn(name = "owner_id")
+    @JoinColumn(name = "owner_uid")
+    @JsonIgnore
     private User owner;
 
+
     @OneToMany(mappedBy = "account", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    @JsonIgnore
     private List<Transactions> transactions;
 }

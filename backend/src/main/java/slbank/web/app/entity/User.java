@@ -1,5 +1,6 @@
 package slbank.web.app.entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.*;
 import org.hibernate.annotations.CreationTimestamp;
@@ -26,7 +27,7 @@ public class User implements UserDetails {
 
     @Id
     @GeneratedValue(strategy = GenerationType.UUID)
-    private UUID id;
+    private UUID uid;
 
     private String firstname;
     private String lastname;
@@ -34,10 +35,11 @@ public class User implements UserDetails {
     @Column(nullable = false, unique = true)
     private String username;
 
-    private String password;
     private Date dob;
     private Long tel;
     private String tag;
+    @JsonIgnore
+    private String password;
     private String gender;
 
     @CreationTimestamp
@@ -49,16 +51,20 @@ public class User implements UserDetails {
     private List<String> roles;
 
     @OneToOne(mappedBy = "owner")
+    @JsonIgnore
     private Card card;
 
     @OneToMany(mappedBy = "owner", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    @JsonIgnore
     private List<Transactions> transactions;
 
     @OneToMany(mappedBy = "owner", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    @JsonIgnore
     private List<Account> accounts;
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
         return roles.stream().map(SimpleGrantedAuthority::new).collect(Collectors.toList());
     }
+
 }

@@ -34,7 +34,7 @@ public class Transactions {
     @JoinColumn(name = "card_id")
     private Card card;
 
-    @ManyToOne()
+    @ManyToOne
     @JoinColumn(name = "owner_id")
     private User owner;
 
