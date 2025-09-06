@@ -5,7 +5,9 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.Authentication;
 import org.springframework.web.bind.annotation.*;
 import slbank.web.app.dto.AccountDto;
+import slbank.web.app.dto.TransferDto;
 import slbank.web.app.entity.Account;
+import slbank.web.app.entity.Transactions;
 import slbank.web.app.entity.User;
 import slbank.web.app.service.AccountService;
 
@@ -28,6 +30,11 @@ public class AccountController {
     public ResponseEntity<List<Account>> getUserAccounts(Authentication authentication) {
         var user = (User) authentication.getPrincipal();
         return ResponseEntity.ok(accountService.getUserAccounts(user.getUid()));
+    }
 
+    @PostMapping("/transfer")
+    public ResponseEntity<Transactions> transferFunds(@RequestBody TransferDto transferDto, Authentication authentication) throws Exception {
+        var user = (User) authentication.getPrincipal();
+        return ResponseEntity.ok(accountService.transferFunds(transferDto, user));
     }
 }

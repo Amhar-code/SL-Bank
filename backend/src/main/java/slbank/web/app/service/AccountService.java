@@ -3,7 +3,9 @@ package slbank.web.app.service;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import slbank.web.app.dto.AccountDto;
+import slbank.web.app.dto.TransferDto;
 import slbank.web.app.entity.Account;
+import slbank.web.app.entity.Transactions;
 import slbank.web.app.entity.User;
 import slbank.web.app.repository.AccountRepository;
 import slbank.web.app.service.helper.AccountHelper;
@@ -24,5 +26,12 @@ public class AccountService {
 
     public List<Account> getUserAccounts(UUID uid) {
         return accountRepository.findAllByOwnerUid(uid);
+    }
+
+    public Transactions transferFunds(TransferDto transferDto, User user) throws Exception {
+        var senderAccount = accountRepository.findByCodeAndOwnerUid(transferDto.getCode(), user.getUid())
+                .orElseThrow(() -> new UnsupportedOperationException("Account of type currency do not exists for user"));
+        var receiverAccount = accountRepository.findByAccountNumber(transferDto.getRecipientAccountNumber()).orElseThrow();
+        return accountHelper.performTransfer(senderAccount, receiverAccount, transferDto.getAmount(), user);
     }
 }
