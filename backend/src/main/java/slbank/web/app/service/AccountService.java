@@ -11,6 +11,7 @@ import slbank.web.app.repository.AccountRepository;
 import slbank.web.app.service.helper.AccountHelper;
 
 import java.util.List;
+import java.util.Map;
 import java.util.UUID;
 
 @Service
@@ -19,6 +20,7 @@ public class AccountService {
 
     private final AccountRepository accountRepository;
     private final AccountHelper accountHelper;
+    private final ExhangeRateService exhangeRateService;
 
     public Account createAccount(AccountDto accountDto, User user) throws Exception {
         return accountHelper.createAccount(accountDto, user);
@@ -33,5 +35,9 @@ public class AccountService {
                 .orElseThrow(() -> new UnsupportedOperationException("Account of type currency do not exists for user"));
         var receiverAccount = accountRepository.findByAccountNumber(transferDto.getRecipientAccountNumber()).orElseThrow();
         return accountHelper.performTransfer(senderAccount, receiverAccount, transferDto.getAmount(), user);
+    }
+
+    public Map<String, Double> getExchangeRates(){
+        return exhangeRateService.getRates();
     }
 }

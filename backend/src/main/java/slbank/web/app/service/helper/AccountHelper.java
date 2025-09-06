@@ -30,7 +30,7 @@ public class AccountHelper {
             "EUR", "Euro",
             "GBP", "British Pound",
             "JPY", "japanese Yen",
-            "SLR", "Sri Lankan Rupee"
+            "LKR", "Sri Lankan Rupee"
     );
 
     public Account createAccount(AccountDto accountDto, User user) throws Exception {
@@ -94,4 +94,5 @@ public class AccountHelper {
             throw new OperationNotSupportedException("Insufficient funds in the account");
         }
     }
+
 }
