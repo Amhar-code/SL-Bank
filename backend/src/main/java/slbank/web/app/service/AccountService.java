@@ -1,8 +1,10 @@
 package slbank.web.app.service;
 
+import jakarta.transaction.Transaction;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import slbank.web.app.dto.AccountDto;
+import slbank.web.app.dto.ConvertDto;
 import slbank.web.app.dto.TransferDto;
 import slbank.web.app.entity.Account;
 import slbank.web.app.entity.Transactions;
@@ -39,5 +41,9 @@ public class AccountService {
 
     public Map<String, Double> getExchangeRates(){
         return exhangeRateService.getRates();
+    }
+
+    public Transactions convertCurrency(ConvertDto convertDto, User user) throws Exception {
+        return accountHelper.convertCurrency(convertDto, user);
     }
 }
