@@ -59,24 +59,10 @@ public class AccountHelper {
         senderAccount.setBalance(senderAccount.getBalance() - amount * 1.01);
         receiverAccount.setBalance(receiverAccount.getBalance() * amount);
         accountRepository.saveAll(List.of(senderAccount, receiverAccount));
-        var senderTransaction = Transactions.builder()
-                .account(senderAccount)
-                .status(Status.COMPLETED)
-                .type(Type.WITHDRAWAL)
-                .txFee(amount * 0.01)
-                .amount(amount)
-                .owner(senderAccount.getOwner())
-                .build();
+        var senderTransaction = createAccountTransaction(amount, Type.WITHDRAWAL, amount * 0.01, user, senderAccount);
+        var receiverTransaction = createAccountTransaction(amount, Type.DEPOSIT, 0.00, receiverAccount.getOwner(), receiverAccount);
 
-        var recipientTransaction = Transactions.builder()
-                .account(receiverAccount)
-                .status(Status.COMPLETED)
-                .type(Type.DEPOSIT)
-                .amount(amount)
-                .owner(receiverAccount.getOwner())
-                .build();
-
-        return transactionRepository.saveAll(List.of(senderTransaction, recipientTransaction)).getFirst();
+        return senderTransaction;
     }
 
     public void validateAccountNonExistsForUser(String code, UUID uid) throws Exception {
@@ -134,14 +120,20 @@ public class AccountHelper {
         accountRepository.saveAll(List.of(fromAccount, toAccount));
 
 
-        var transaction = Transactions.builder()
-                .owner(user)
-                .amount(convertDto.getAmount())
-                .txFee(convertDto.getAmount() * 0.01)
-                .account(fromAccount)
+        var fromAccounttransaction = createAccountTransaction(convertDto.getAmount(), Type.WITHDRAWAL, convertDto.getAmount() * 0.01, user, fromAccount);
+        var toAccounttransaction = createAccountTransaction(computedAmount, Type.DEPOSIT, convertDto.getAmount() * 0.00, user, toAccount);
+        return fromAccounttransaction;
+    }
+
+    public Transactions createAccountTransaction(double amount, Type type, double txFee, User user, Account account) {
+        var tx = Transactions.builder()
+                .txFee(txFee)
+                .amount(amount)
+                .type(type)
                 .status(Status.COMPLETED)
-                .type(Type.DEPOSIT)
+                .owner(user)
+                .account(account)
                 .build();
-        return transactionRepository.save(transaction);
+        return transactionRepository.save(tx);
     }
 }
