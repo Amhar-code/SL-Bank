@@ -1,5 +1,6 @@
 package slbank.web.app.entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.*;
 import org.hibernate.annotations.CreationTimestamp;
@@ -32,14 +33,17 @@ public class Transactions {
 
     @ManyToOne()
     @JoinColumn(name = "card_id")
+    @JsonIgnore
     private Card card;
 
     @ManyToOne
     @JoinColumn(name = "owner_id")
+    @JsonIgnore
     private User owner;
 
     @ManyToOne()
     @JoinColumn(name = "account_id")
+    @JsonIgnore
     private Account account;
 
 }

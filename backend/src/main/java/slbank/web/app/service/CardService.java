@@ -2,6 +2,7 @@ package slbank.web.app.service;
 
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 import slbank.web.app.entity.*;
 import slbank.web.app.repository.AccountRepository;
 import slbank.web.app.repository.CardRepository;
@@ -13,6 +14,7 @@ import java.time.LocalDateTime;
 
 @Service
 @RequiredArgsConstructor
+@Transactional
 public class CardService {
 
     private final CardRepository cardRepository;
@@ -44,11 +46,12 @@ public class CardService {
                 .exp(LocalDateTime.now().plusYears(3))
                 .cvv(new RandomUtil().generateRandom(3).toString())
                 .balance(amount - 1)
+                .owner(user)
                 .build();
         card = cardRepository.save(card);
         accountHelper.createAccountTransaction(1, Type.WITHDRAWAL, 0.00, user, usdAccount);
         accountHelper.createAccountTransaction(amount-1, Type.WITHDRAWAL, 0.00, user, usdAccount);
-        createCardTransaction(amount, Type.CREDIT, 0.00, user, card);
+        createCardTransaction(amount, Type.WITHDRAWAL, 0.00, user, card);
         accountRepository.save(usdAccount);
         return card;
      }
@@ -63,6 +66,7 @@ public class CardService {
         accountHelper.createAccountTransaction(amount, Type.WITHDRAWAL, 0.00, user, usdAccount);
         var card = user.getCard();
         card.setBalance(card.getBalance() + amount );
+        cardRepository.save(card);
         return createCardTransaction(amount, Type.CREDIT, 0.00, user, card);
     }
 
@@ -72,6 +76,7 @@ public class CardService {
         accountHelper.createAccountTransaction(amount, Type.DEPOSIT, 0.00, user, usdAccount);
         var card = user.getCard();
         card.setBalance(card.getBalance() - amount );
+        cardRepository.save(card);
         return createCardTransaction(amount, Type.DEBIT, 0.00, user, card);
     }
 

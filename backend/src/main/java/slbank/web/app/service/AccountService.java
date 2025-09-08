@@ -3,6 +3,7 @@ package slbank.web.app.service;
 import jakarta.transaction.Transaction;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 import slbank.web.app.dto.AccountDto;
 import slbank.web.app.dto.ConvertDto;
 import slbank.web.app.dto.TransferDto;
@@ -18,6 +19,7 @@ import java.util.UUID;
 
 @Service
 @RequiredArgsConstructor
+@Transactional
 public class AccountService {
 
     private final AccountRepository accountRepository;

@@ -1,7 +1,7 @@
 package slbank.web.app.entity;
 
 public enum Status {
-    PENDING,
-    COMPLETED,
-    FAILED
+    PENDING,  // 0
+    COMPLETED, // 1
+    FAILED     // 2
 }
