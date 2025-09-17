@@ -1,10 +1,13 @@
 import React, { useEffect, useState } from 'react'
 import { FaPiggyBank, FaChevronRight } from 'react-icons/fa';
-import InputComponent from '../../components/inputComponent';
-import validateUser from '../../helper/validateUser';
-
+import InputComponent from '../components/inputComponent';
+import validateUser from '../helper/validateUser';
+import { useDispatch, useSelector } from 'react-redux';
+import { fetchUserStatus } from '../features/userSlice';
 
 function Register(){
+  const dispatch = useDispatch()
+  const status = useSelector (fetchUserStatus)
   const [user, setUser] = useState(
     {
       firstname: '',
@@ -21,7 +24,7 @@ function Register(){
   const [errors, setErrors] = useState({status: false})
 
   const signUp = async (e) => {
-     alert("Registration Successful")
+     dispatch(registerUser(user))
     }
 
   const handleInputChange = (e) => {

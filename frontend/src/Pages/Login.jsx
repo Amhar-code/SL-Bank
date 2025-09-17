@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { FaPiggyBank, FaChevronRight } from 'react-icons/fa';
-import InputComponent from '../../components/inputComponent';
+import InputComponent from '../components/inputComponent';
 
 function Login() {
   const [user, setUser] = useState({
