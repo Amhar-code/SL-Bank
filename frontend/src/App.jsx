@@ -5,6 +5,7 @@ import Login from './Pages/Login';
 import './App.css';
 import Register from './Pages/Register';
 import { store } from './app/store';
+import RegisterSuccessful from './Pages/RegisterSuccessful'
 
 function App() {
   const router = createBrowserRouter([
@@ -19,6 +20,10 @@ function App() {
     {
       path: "/register",
       element: <Register />
+    },
+    {
+      path: "/successful",  // Fixed typo: was "/sucessful"
+      element: <RegisterSuccessful />
     }
   ]);
 

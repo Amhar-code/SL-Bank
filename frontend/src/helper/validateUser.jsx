@@ -15,9 +15,9 @@ const validateUser = (user) => {
     }
   
     if (!user.username) {
-      addError('email', 'Email is required');
+      addError('username', 'Email is required');
     } else if (!isValidEmail(user.username)) {
-      addError('email', 'Invalid email format');
+      addError('username', 'Invalid email format');
     }
   
     if (!user.tel) {

@@ -1,10 +1,10 @@
-import { configureStore } from "@reduxjs/toolkit";
-import userReducers from "../features/userSlice";
+import { configureStore } from '@reduxjs/toolkit';
+import userReducer from '../features/user/userSlice';
+import pageReducer from '../features/page/pageSlice';  
 
-export const store = configureStore(
-    {
-        reducer: {
-            user: userReducers,
-        },
-    }
-)
+export const store = configureStore({
+  reducer: {
+    user: userReducer,
+    pages: pageReducer,  
+  },
+});
