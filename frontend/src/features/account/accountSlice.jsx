@@ -1,10 +1,10 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 import api from "../../api/api";
-import lkr from '../../img/lkr.png'
-import us from '../../img/us.png'
-import gb from '../../img/gb.png'
-import eu from '../../img/eu.png'
-import cn from '../../img/cn.png'
+import lkr from '../../img/lkr.png';
+import us from '../../img/us.png';
+import gb from '../../img/gb.png';
+import eu from '../../img/eu.png';
+import cn from '../../img/cn.png';
 
 const initialState = {
   accounts: [],
@@ -84,7 +84,7 @@ export const transferFunds = createAsyncThunk("accounts/transfer", async (detail
     throw new Error(err.message)
   }
  })
-export const accounsSlice = createSlice(
+export const accountSlice = createSlice(
     {
       name: "accounts",
       initialState,
@@ -113,9 +113,9 @@ export const accounsSlice = createSlice(
             const newAccountList = fetchedAccounts.map(acc => {
               let flag = us
               if (acc.code === 'USD') flag = us
+              if (acc.code === 'LKR') flag = lkr
               if (acc.code === 'EUR') flag = eu
               if (acc.code === 'GBP') flag = gb
-              if (acc.code === 'LKR') flag = lkr
               if (acc.code === 'CNY') flag = cn
               return {...acc, flag}
             })
@@ -188,10 +188,10 @@ export const accounsSlice = createSlice(
     }
 )
 
-export const fetchAccountStatus = state => state.accounts.status
-export const { addAccount, addTransaction, resetAccountStatus, resetRecipient } = accounsSlice.actions
-export const fetchRecipient = state => state.accounts.recipientAccount
-export const exchangeRates = state => state.accounts.rates
+export const fetchAccountStatus = state => state.account.status
+export const { addAccount, addTransaction, resetAccountStatus, resetRecipient } = accountSlice.actions
+export const fetchRecipient = state => state.account.recipientAccount
+export const exchangeRates = state => state.account.rates
 
-export default accounsSlice.reducer
-export const accounts = state => state.accounts.accounts
+export default accountSlice.reducer
+export const accounts = state => state.account.accounts
