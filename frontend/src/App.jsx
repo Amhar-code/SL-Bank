@@ -6,6 +6,7 @@ import './App.css';
 import Register from './Pages/Register';
 import { store } from './app/store';
 import RegisterSuccessful from './Pages/RegisterSuccessful'
+import Dashboard from './Pages/Dashboard';
 
 function App() {
   const router = createBrowserRouter([
@@ -22,8 +23,12 @@ function App() {
       element: <Register />
     },
     {
-      path: "/successful",  // Fixed typo: was "/sucessful"
+      path: "/successful",
       element: <RegisterSuccessful />
+    },
+    {
+      path: "/dashboard/*",
+      element: <Dashboard />
     }
   ]);
 
