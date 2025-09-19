@@ -47,6 +47,9 @@ public class SecurityConfig {
         configuration.addAllowedMethod("*");
         configuration.addAllowedHeader("*");
         configuration.setAllowCredentials(true);
+        // Explicitly expose the Authorization header
+        configuration.addExposedHeader("Authorization");
+        configuration.addExposedHeader("authorization");
 
         UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
         source.registerCorsConfiguration("/**", configuration);

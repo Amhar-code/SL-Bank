@@ -6,7 +6,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { fetchUserStatus, registerUser, resetStatus } from '../features/user/userSlice';
 import Spinner from '../components/spinner';
 import { openSpinner, showSpinner,closeSpinner } from '../features/page/pageSlice';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, Link } from 'react-router-dom';
 
 function Register(){
   const dispatch = useDispatch()
@@ -82,14 +82,14 @@ function Register(){
         sm:min-w-[500px] flex-1 w-full' onSubmit={signUp}>
               <h2 className='md font-bold'>Create your account</h2>
               <div className='flex flex-col sm:flex-row gap-1 flex-1 w-full sm:gap-6'>
-                <InputComponent inputProp={{ name: user.firstname, type: "text", label: "Provide Firstname", 
+                <InputComponent inputProp={{ name: "firstname", type: "text", label: "Provide Firstname", 
                     field: "firstname", placeholder: "Jhon", value: user.firstname, onChange: handleInputChange }}/>
-                <InputComponent inputProp={{ name: user.lastname, type: "text", label: "Provide Lastname", 
+                <InputComponent inputProp={{ name: "lastname", type: "text", label: "Provide Lastname", 
                     field: "lastname", placeholder: "Perera", value: user.lastname, onChange: handleInputChange }}/>
               </div>
-              <InputComponent inputProp={{ name: user.username, type: "email", label: "Provide Email", 
+              <InputComponent inputProp={{ name: "username", type: "email", label: "Provide Email", 
                 field: "username", placeholder: "JhonPerera123@gmail.com", value: user.username, onChange: handleInputChange }}/>
-              <InputComponent inputProp={{ name: user.tel, type: "number", label: "Provide Tel", 
+              <InputComponent inputProp={{ name: "tel", type: "number", label: "Provide Tel", 
                 field: "tel", placeholder: "+94259874135", value: user.tel, onChange: handleInputChange }}/>
               <div className='flex flex-col gap-1 flex-1 w-full mt-2'>
                 <label htmlFor='gender'>Gender <span className={errorStyle('gender')}>*</span></label>
@@ -99,18 +99,18 @@ function Register(){
                     <option value="female">Female</option>
                 </select>
               </div>
-              <InputComponent inputProp={{ name: user.dob, type: "date", label: "Provide Date of birth", 
+              <InputComponent inputProp={{ name: "dob", type: "date", label: "Provide Date of birth", 
                 field: "dob", value: user.dob, onChange: handleInputChange }}/>
               <div className='flex flex-col sm:flex-row gap-1 flex-1 w-full sm:gap-6'>
-                <InputComponent inputProp={{ name: user.password, type: "password", label: "Password", 
+                <InputComponent inputProp={{ name: "password", type: "password", label: "Password", 
                     field: "password", placeholder: "Enter Your Password", value: user.password, onChange: handleInputChange }}/>
-                <InputComponent inputProp={{ name: user.confirmPassword, type: "password", label: "Confirm Password", 
+                <InputComponent inputProp={{ name: "confirmPassword", type: "password", label: "Confirm Password", 
                     field: "confirmPassword", placeholder: "Confirm Your Password", value: user.confirmPassword, onChange: handleInputChange }}/>
               </div>
               <button type="submit" disabled={validateUser(user).hasErrors} className={`${disabledStyle} 
               p-2 rounded-xl text-white font-bold mt-2 transition-all`}>SIGN UP</button>
           </form>
-          <p>Have an account? <a href='/login' className='underline text-blue-500'>Login</a></p>
+          <p>Have an account? <Link to='/login' className='underline text-blue-500 hover:text-blue-700'>Login</Link></p>
       </section>
     </main>
   )

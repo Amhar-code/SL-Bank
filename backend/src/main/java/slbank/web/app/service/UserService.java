@@ -41,7 +41,7 @@ public class UserService {
         }
         authenticationManager
                 .authenticate(new UsernamePasswordAuthenticationToken(userDto.getUsername(), userDto.getPassword()));
-        authObject.put("token", "Bearer".concat(jwtService.generateToken(userDto.getUsername())));
+        authObject.put("token", "Bearer ".concat(jwtService.generateToken(userDto.getUsername())));
         authObject.put("user", user);
         return authObject;
     }

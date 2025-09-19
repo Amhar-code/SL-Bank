@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { FaPiggyBank, FaChevronRight } from 'react-icons/fa';
 import InputComponent from '../components/inputComponent';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, Link } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import Spinner from '../components/spinner';
 import { openSpinner, showSpinner,closeSpinner } from '../features/page/pageSlice';
@@ -86,8 +86,11 @@ function Login() {
             LOGIN
           </button>
         </form>
-        <p>Don't have an account? <a href='/signup' className='underline 
-        text-blue-500'>Create One</a></p>
+        <p>Don't have an account? <Link to='/register' className='underline 
+        text-blue-500 hover:text-blue-700' onClick={(e) => {
+          e.preventDefault();
+          navigate('/register');
+        }}>Create One</Link></p>
       </section>
     </main>
   );

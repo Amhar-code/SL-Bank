@@ -6,23 +6,50 @@ const initialState = {
     status: 'IDLE',
 }
 
-export const authenticateUser = createAsyncThunk("user/autheticate", async (userDetails) =>{
-         try{
-                const {data, error, headers} = await api.post('/user/auth', userDetails)
-                if(error) throw error;
-                const { authorization } = headers
-                sessionStorage.setItem('access_token', authorization)
-                console.log(`authorization header: ${JSON.stringify(headers)}`)
-                console.log(`JWT token value ${authorization}`)
-                console.log(`Data value ${data}`)
-                sessionStorage.setItem('user', JSON.stringify(data))
-                return data
-            } catch(err) {
-                console.log(err.message)
-                throw err
-         }
+export const authenticateUser = createAsyncThunk("user/authenticate", async (userDetails) => {
+    try {
+        console.log('Sending login request with:', userDetails);
+        const response = await api.post('/user/auth', userDetails);
+        
+        // Debug log the entire response
+        console.log('Full response:', {
+            status: response.status,
+            statusText: response.statusText,
+            headers: response.headers,
+            data: response.data,
+            config: response.config
+        });
+
+        // Try to get the token from different possible header names
+        const token = response.headers['authorization'] || 
+                     response.headers['Authorization'] ||
+                     (response.data && response.data.token);
+        
+        if (!token) {
+            console.error('No authorization token found in response');
+            throw new Error('No authorization token received');
+        }
+
+        console.log('Token received:', token);
+        
+        // Store the token in session storage
+        sessionStorage.setItem('access_token', token);
+        
+        // Store user data
+        const userData = response.data.user || response.data;
+        sessionStorage.setItem('user', JSON.stringify(userData));
+        
+        return userData;
+    } catch (err) {
+        console.error('Authentication error:', {
+            message: err.message,
+            response: err.response,
+            request: err.request,
+            config: err.config
+        });
+        throw err;
     }
-)
+})
 
 export const registerUser = createAsyncThunk("user/register", async (userDetails) => {
     try {
