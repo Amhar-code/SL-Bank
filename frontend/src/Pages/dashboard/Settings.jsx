@@ -14,18 +14,15 @@ const Settings = () => {
         accountActivity: true,
         marketingEmails: false,
         
-        // Security Settings
         twoFactorAuth: false,
         biometricLogin: true,
         autoLogout: true,
-        autoLogoutTime: 5, // minutes
+        autoLogoutTime: 5, 
         
-        // Account Settings
         currency: 'USD',
         language: 'en',
         timezone: 'America/New_York',
         
-        // Privacy Settings
         showBalance: true,
         showRecentTransactions: true,
         dataSharing: false,
@@ -39,7 +36,6 @@ const Settings = () => {
     };
 
     const handleLogout = () => {
-        // Handle logout logic here
         console.log('User logged out');
     };
 

@@ -1,6 +1,5 @@
 package slbank.web.app.service.helper;
 
-
 import slbank.web.app.dto.AccountDto;
 import slbank.web.app.dto.ConvertDto;
 import slbank.web.app.entity.*;
@@ -69,7 +68,7 @@ public class AccountHelper {
         receiverAccount.setBalance(receiverAccount.getBalance() + amount);
         accountRepository.saveAll(List.of(senderAccount, receiverAccount));
         var senderTransaction = transactionService.createAccountTransaction(amount, Type.WITHDRAWAL, amount * 0.01, user, senderAccount);
-        var receiverTransaction = transactionService.createAccountTransaction(amount, Type.DEPOSIT, 0.00, receiverAccount.getOwner(), receiverAccount);
+        transactionService.createAccountTransaction(amount, Type.DEPOSIT, 0.00, receiverAccount.getOwner(), receiverAccount);
 
         return senderTransaction;
     }
@@ -133,7 +132,7 @@ public class AccountHelper {
         accountRepository.saveAll(List.of(fromAccount, toAccount));
 
         var fromAccountTransaction = transactionService.createAccountTransaction(convertDto.getAmount(), Type.CONVERSION, convertDto.getAmount() * 0.01, user, fromAccount);
-        var toAccountTransaction = transactionService.createAccountTransaction(computedAmount, Type.DEPOSIT, convertDto.getAmount() * 0.00, user, toAccount);
+        transactionService.createAccountTransaction(computedAmount, Type.DEPOSIT, convertDto.getAmount() * 0.00, user, toAccount);
         return fromAccountTransaction;
     }
 

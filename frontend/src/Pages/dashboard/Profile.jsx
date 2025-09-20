@@ -54,7 +54,7 @@ const Profile = () => {
         e.preventDefault();
         try {
             setIsLoading(true);
-            const { ssn, ...profileData } = profile; // Don't send SSN back
+            const { ssn, ...profileData } = profile; 
             await api.put('/user/me', profileData);
             toast.success('Profile updated successfully');
             setIsEditing(false);

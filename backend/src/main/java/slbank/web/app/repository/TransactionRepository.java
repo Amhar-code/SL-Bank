@@ -2,16 +2,11 @@ package slbank.web.app.repository;
 
 import slbank.web.app.entity.Transactions;
 import org.springframework.data.domain.Page;
-import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
-
-import java.net.ContentHandler;
-import java.util.List;
 import java.util.UUID;
 
 public interface TransactionRepository extends JpaRepository<Transactions, String> {
-
 
     Page<Transactions> findAllByOwnerUid(UUID uid, Pageable pageable);
 

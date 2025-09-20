@@ -1,6 +1,5 @@
 package slbank.web.app.service;
 
-import jakarta.transaction.Transaction;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;

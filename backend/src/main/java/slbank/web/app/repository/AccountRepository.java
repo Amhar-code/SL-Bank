@@ -1,6 +1,5 @@
 package slbank.web.app.repository;
 
-import lombok.RequiredArgsConstructor;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 import slbank.web.app.entity.Account;
