@@ -11,9 +11,9 @@ const CardDetails = () => {
         <div className='flex flex-col sm:flex-row  sm:flex-wrap'>
           <TextComponent textProp={{tag: `Card Holder's Name`, value: userCard.cardHolder}}/>
           <TextComponent textProp={{tag: `Card Number`, value: userCard.cardNumber}}/>
-          <TextComponent textProp={{tag: `Issuer`, value: `IO BANK`}}/>
+          <TextComponent textProp={{tag: `Issuer`, value: `SL BANK`}}/>
           <TextComponent textProp={{tag: `Card Type`, value: `Master Card`}}/>
-          <TextComponent textProp={{tag: `Billing Address`, value: '8, Dexter Avenue P.O Box 10035'}}/>
+          <TextComponent textProp={{tag: `Billing Address`, value: '8, thams avenue, Colombo 71500'}}/>
           <TextComponent textProp={{tag: `Expiration Date`, value: userCard.exp.substring(2,7).replace('-', '/')}}/>
           <TextComponent textProp={{tag: `CVV`, value: userCard.cvv}}/>
         </div>

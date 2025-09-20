@@ -7,6 +7,7 @@ import Register from './Pages/Register';
 import { store } from './app/store';
 import RegisterSuccessful from './Pages/RegisterSuccessful'
 import Dashboard from './Pages/Dashboard';
+import ProtectedRoute from './Pages/ProtectedRoute';
 
 function App() {
   const router = createBrowserRouter([
@@ -28,7 +29,7 @@ function App() {
     },
     {
       path: "/dashboard/*",
-      element: <Dashboard />
+      element: <ProtectedRoute><Dashboard /></ProtectedRoute>
     }
   ]);
 
